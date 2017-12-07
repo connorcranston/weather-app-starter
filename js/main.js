@@ -31,7 +31,7 @@ function addIcon(w){
     }
     if(w == "Clouds"){
         //icon.setAttribute('src', 'img/cloudy.png')
-        icon.src = 'img/clouds.png'
+        icon.src = 'img/cloudy.png'
     }    
     if(w == "Partly-cloudy"){
         icon.src = 'img/partly.cloudy.png'
@@ -49,7 +49,7 @@ function addIcon(w){
         icon.src = 'img/thunderstorm.png'
     }
         if(w == "Clear"){
-        icon.src = 'img/clear.png'
+        icon.src = 'img/sun.png'
     }
 }
 
@@ -59,6 +59,7 @@ $.ajax({
         url: `${api_root}${zipCode},us&appid=${api_key}`,
         dataType: "json",
         success: function(data){
+            addIcon(data.weather["0"].main)
             console.log(data)
             temper = kelvinToFahreinheit(data.main.temp)
             weather.textContent = data.weather[0].main
@@ -67,7 +68,7 @@ $.ajax({
             temp.innerHTML = `${temper} &deg;`
             humid.textContent = `${data.main.humidity}%`
         },
-        error: function(error){
+        error: function(data){
             console.log(error)
          }
     })
